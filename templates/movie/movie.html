@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Page Content -->
+  <div class="container">
+
+      <div class="row">
+
+          <div class="col-lg-3">
+
+                <h1 class="my-4">Categories</h1>
+                <div class="list-group">
+                    {% for key, name in categories.items %}
+                  <a href="?genre={{ key }}" class="list-group-item">{{ name }}</a>
+                    {% endfor %}
+                </div>
+          </div>
+            <!-- /.col-lg-3 -->
+          <div class="col-lg-9">
+
+
+              <div class="row" style="margin-top: 18px;">
+                  {% if movie_list %}
+                  {% for movie in movie_list %}
+                  <div class="col-lg-4 col-md-6 mb-4">
+                      <div class="card h-100">
+                        {% if movie.poster %}
+                          <a href="#"><img class="card-img-top" src="{{movie.poster.url}}" alt=""></a>
+                        {% endif %}
+                          <div class="card-body">
+                            <h4 class="card-title">
+                              <a href="#">{{movie.title | upper}}</a>
+                            </h4>
+                            <h5>{{movie.gender | upper}}</h5>
+                            <p class="card-text">{{movie.detail}}</p>
+                          </div>
+                          <div class="card-footer">
+                              {% if movie.rating < 1 %}
+                            <small class="text-muted">&#9734; &#9734; &#9734; &#9734; &#9734;</small>
+                              {% elif movie.rating < 2 %}
+                            <small class="text-muted">&#9733; &#9734; &#9734; &#9734; &#9734;</small>
+                              {% elif movie.rating < 3 %}
+                            <small class="text-muted">&#9733; &#9733; &#9734; &#9734; &#9734;</small>
+                              {% elif movie.rating < 4 %}
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9734; &#9734;</small>
+                              {% elif movie.rating < 5 %}
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                              {% else %}
+                              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9733;</small>
+                              {% endif %}
+
+                          </div>
+                      </div>
+                  </div>
+                  {% endfor %}
+                  {% else %}
+                           <h1>NO MOVIES</h1>
+                  {% endif %}
+
+              </div>
+              <!-- /.row -->
+
+          </div>
+          <!-- /.col-lg-9 -->
+
+      </div>
+      <!-- /.row -->
+
+  </div>
+    <!-- /.container -->
+
+{% endblock %}

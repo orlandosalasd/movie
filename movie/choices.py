@@ -1,0 +1,25 @@
+GENDERS = (('drama', 'Drama'),
+               ('science fiction', 'Science fiction'),
+               ('action', 'Action'),
+               ('terror', 'Terror'),
+               ('adventures', 'Adventures'),
+               ('intrigue', 'Intrigue'),
+               ('romance', 'Romance'),
+               ('animation', 'Animation'),
+               ('suspense', 'Suspense'),
+               ('musical', 'Musical')
+    )
+LENGUAJE = (('english', 'English'),
+            ('spanish', 'Spanish'),
+            ('french', 'French'),
+            ('german', 'German'),
+            ('italian', 'Italian'),
+            ('portuguese', 'Portuguese'),
+            ('russian', 'Russian'),
+            ('turkish', 'Turkish'),
+            ('dutch', 'Dutch'),
+            ('swedish', 'Swedish'),
+            ('polish', 'Polish'),
+            ('norwegian', 'Norwegian'),
+            ('indonesian', 'Indonesian')
+            )

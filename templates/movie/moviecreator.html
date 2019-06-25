@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
+
+	<title></title>
+</head>
+  <body>
+
+    <div class="container">
+      <form id="contact" action="" method="post">
+        {% csrf_token %}
+          <h3>Movie Creator Form</h3>
+          <fieldset>
+          {{form.title}}
+          </fieldset>
+          <fieldset>
+            {{form.duration}}
+          </fieldset>
+          <fieldset>
+            <input placeholder="Your Email Address" type="email" tabindex="2" required>
+          </fieldset>
+          <fieldset>
+            <input placeholder="Your Phone Number (optional)" type="tel" tabindex="3" required>
+          </fieldset>
+          <fieldset>
+            <input placeholder="Your Web Site (optional)" type="url" tabindex="4" required>
+          </fieldset>
+          <fieldset>
+            <textarea placeholder="Type your message here...." tabindex="5" required></textarea>
+          </fieldset>
+          <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+          </fieldset>
+      </form>
+    </div>
+
+  </body>
+</html>

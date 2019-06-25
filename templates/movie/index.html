@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
+
+	<title></title>
+</head>
+  <body>
+
+    <div class="container">
+      <form id="contact" action="" method="post">
+        {% csrf_token %}
+          <h3>Movie Page Login</h3>
+          <fieldset>
+            {{ form.username }}
+          </fieldset>
+          <fieldset>
+            {{ form.password }}
+          </fieldset>
+          <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+          </fieldset>
+      </form>
+    </div>
+
+  </body>
+</html>
