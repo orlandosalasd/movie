@@ -78,6 +78,10 @@ class MovieForm(forms.ModelForm):
         }
 
 
+class MovieFormDownload(forms.Form):
+    title = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Movie title', 'type': 'text'}))
+
+
 class UserForm(UserCreationForm):
     class Meta:
         model = User

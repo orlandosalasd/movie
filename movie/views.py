@@ -1,9 +1,10 @@
 from uuid import uuid4
 
+from celery import chord, group
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, FormView, RedirectView
 from django.views.generic.detail import BaseDetailView
@@ -14,8 +15,9 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework_xml.parsers import XMLParser
 from rest_framework_xml.renderers import XMLRenderer
 
-from movie.forms import UserForm
+from movie.forms import UserForm, MovieFormDownload
 from movie.models import UserToken
+from movie.tasks import download_movie, send_email
 from .choices import GENDERS
 from .models import Movie
 from .forms import MovieForm, AuthenticationForm
@@ -97,6 +99,22 @@ class MovieCreateView(CreateView):
     form_class = MovieForm
     template_name = 'movie/moviecreator.html'
     success_url = 'movie/movie.html'
+
+
+class MovieDownload(FormView):
+    template_name = 'movie/download.html'
+    success_url = reverse_lazy('movie:movie')
+    form_class = MovieFormDownload
+
+    def form_valid(self, form):
+        titles = form.cleaned_data.get('title')
+        titles = titles.split(', ')
+        task_group = []
+        for title in titles:
+            task_group.append(download_movie.s(title))
+        chord(group(task_group), send_email.s()).delay()
+
+        return super().form_valid(form)
 
 
 # ---------------- API - SERIALIZERS -----------------------

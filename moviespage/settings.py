@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'rest_framework',
     'rest_framework.authtoken',
-
+    'django_celery_results',
     'movie',
 ]
 
@@ -149,6 +149,7 @@ REST_FRAMEWORK = {
     )
 }
 
-
+CELERY_IGNORE_RESULT = False
 INTERNAL_IPS = ['127.0.0.1', 'localhost']
 
+CELERY_RESULT_BACKEND = 'django-db'
