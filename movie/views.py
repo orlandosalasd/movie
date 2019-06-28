@@ -16,7 +16,7 @@ from rest_framework_xml.parsers import XMLParser
 from rest_framework_xml.renderers import XMLRenderer
 
 from movie.forms import UserForm, MovieFormDownload
-from movie.models import UserToken
+from movie.models import UserToken, Suggest
 from movie.tasks import download_movie, send_email
 from .choices import GENDERS
 from .models import Movie
@@ -101,7 +101,7 @@ class MovieCreateView(CreateView):
     success_url = 'movie/movie.html'
 
 
-class MovieDownload(FormView):
+'''class MovieDownload(FormView):
     template_name = 'movie/download.html'
     success_url = reverse_lazy('movie:movie')
     form_class = MovieFormDownload
@@ -114,6 +114,20 @@ class MovieDownload(FormView):
             task_group.append(download_movie.s(title))
         chord(group(task_group), send_email.s()).delay()
 
+        return super().form_valid(form)'''
+
+
+class MovieDownload(FormView):
+    template_name = 'movie/download.html'
+    success_url = reverse_lazy('movie:movie')
+    form_class = MovieFormDownload
+
+    def form_valid(self, form):
+        titles = form.cleaned_data.get('title')
+        titles = titles.split(', ')
+        for title in titles:
+            instance = Suggest.objects.create(title=title)
+            instance.save()
         return super().form_valid(form)
 
 

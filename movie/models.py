@@ -62,6 +62,12 @@ class UserToken(models.Model):
         return f'{self.user.username}'
 
 
+class Suggest(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.title}'
+
 
 
 
